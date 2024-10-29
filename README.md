@@ -19,3 +19,13 @@ cargo run -- https://www.example.com
 ```
 
 This will fetch the content of `https://www.example.com` and print it to the terminal.
+
+## Running Tests
+
+To run the tests for this project, use the following command:
+
+```sh
+cargo test
+```
+
+This will execute all the tests defined in the project.

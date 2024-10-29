@@ -20,3 +20,28 @@ async fn main() {
         Err(err) => eprintln!("Error making request: {}", err),
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use tokio;
+    use reqwest::Response;
+
+    async fn mock_request(url: &str) -> Result<Response, reqwest::Error> {
+        reqwest::get(url).await
+    }
+
+    #[tokio::test]
+    async fn test_valid_url() {
+        let url = "https://www.example.com";
+        let response = mock_request(url).await.unwrap();
+        assert!(response.status().is_success());
+    }
+
+    #[tokio::test]
+    async fn test_invalid_url() {
+        let url = "https://invalid.url";
+        let response = mock_request(url).await;
+        assert!(response.is_err());
+    }
+}
